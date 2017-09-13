@@ -39,8 +39,6 @@ def getHistos_bdt(hist, filename, plotDirs, weights, sf):
         hname = hist+"_"+Dir            
         #print hname
         if(tf.Get(Dir+"/"+hname)):
-            print Dir
-            print hname
             w = 1.
             sf_ = 1.
             if len(weights)>0:
@@ -57,7 +55,7 @@ def getHistos_bdt(hist, filename, plotDirs, weights, sf):
             print h.Integral()
             hlist.append(h)
         else:
-            print "WARNING: hist {} not found in {}".format(hist,tf)
+            print "WARNING: hist {} not found in {}/{}".format(hist,tf,Dir)
 
     return hlist
 #------------
@@ -127,7 +125,7 @@ def getHistos(hist, filelist, plotDir, lumi, normtolumi, weight, sf):
             h.Scale(norm)
             hlist.append(h)
         else:
-            print "WARNING: hist {} not found in {}".format(hist,tf)
+            print "WARNING: hist {} not found in {}/{}".format(hist,tf,plotdir)
 
     return hlist
 #------------
@@ -571,8 +569,8 @@ def drawH1(hlist1, snames1, legstack1, hlist2, snames2, legstack2, hsOpt, residu
         hrat.GetXaxis().SetLabelFont(43)
         hrat.GetXaxis().SetLabelSize(20)
         hrat.GetXaxis().SetRangeUser(hsOpt['xmin'],hsOpt['xmax'])
-        ymax_ = 1.2 
-        ymin_ = 0.8
+        ymax_ = 1.9 
+        ymin_ = 0.1
         ymax = 1.
         ymin = 1.
         for ibin in range(1, hrat.GetNbinsX()+1):       

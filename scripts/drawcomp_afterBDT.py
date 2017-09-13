@@ -37,6 +37,9 @@ filename = iDir+"/"+args.bdt+".root"
 headerOpt = args.bdt
 getChi = False
 
+weights_QCDM = [30.3931898803,6.37538252295,0.653243788873,0.167508599069,0.120278627883,0.0110278975456,0.00515986378287]
+
+
 # exe parameters
 if args.hlist == 0:
     histList   = [ 'classifier'] #'h_H0_mass', 'h_H1_mass', 'h_H0H1_mass',
@@ -82,7 +85,7 @@ elif args.hlist == 3:
 
 
 histList2  = ["DiJets[0].mass()-DiJets[1].mass()", "CSV_Jet2-CSV_Jet3", "CMVA_Jet2-CMVA_Jet3",] #2D histos,
-intLumi_fb = 1. # plots normalized to this
+intLumi_fb = 36.8 # plots normalized to this
 weights = [[],[]]
 sf = [[],[]]
 getVar = False
@@ -275,6 +278,7 @@ elif which == 10:
     isMC = False
     oname = 'comp_bkgdata_afterBDT'
     headerOpt = "  H mass CR - train.sam." #
+
 
 elif which == 101:
     samples = [['BTagCSVRun2016-mixed-extreme2'],['data']] #data always  second
@@ -562,7 +566,261 @@ elif which == 25: # -l 0 !!
     sf = [[1.],[(33.53*0.5824*0.5824/(4172119.0*0.2))]] ## update xs!!
     oname = 'comp_ttbbsig_afterBDT'
     headerOpt = "    "
-   
+
+elif which == 41:
+    samples = [['QCD-mixed'], ['QCDMC']]
+    fractions = ['appl','']
+    regions = ['ms','ms'] 
+    legList = [["Mixed QCD MC appl"], ["QCD MC (mixing sample)"]]
+    colorList = [[4], [440]]
+    sf = [[1.],[8662.0/2178.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCD_QCDmixed_afterBDT'
+    headerOpt = "  " #
+
+elif which == 410:
+    samples = [['QCD-mixed'], ['QCD-mixed']]
+    fractions = ['appl','test']
+    regions = ['ms','ms'] 
+    legList = [["QCD mixed appl"], ["QCD mixed test"]]
+    colorList = [[4], [11]]
+    sf = [[1.],[1.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDMC_appl_test_afterBDT'
+    headerOpt = "  " #
+
+elif which == 411:
+    samples = [['QCD-mixed'], ['QCD-mixed']]
+    fractions = ['appl','train']
+    regions = ['ms','ms'] 
+    legList = [["QCD mixed appl"], ["QCD mixed train"]]
+    colorList = [[4], [11]]
+    sf = [[1.],[1.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDMC_appl_train_afterBDT'
+    headerOpt = "  " #
+
+elif which == 42:
+    samples = [['QCDMC'], ['bkg']]
+    fractions = ['','appl']
+    regions = ['ms','ms'] 
+    legList = [["QCD MC"], ["Mixed data appl"]]
+    colorList = [[430], [1]]
+    sf = [[620605/2178.],[1.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCD_mixeddata_afterBDT'
+    headerOpt = "  " #
+
+elif which == 431:
+    samples = [['QCDMC'], ['data']]
+    fractions = ['','']
+    regions = ['ms','ms'] 
+    legList = [["QCD MC mixing sample"], ["Data"]]
+    colorList = [[430], [1]]
+    sf = [[154501./2797],[1]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDMC_mixingsamp_vs_data_afterBDT'
+    headerOpt = "  " #
+
+elif which == 43:
+    samples = [['qcd_m'], ['data']]
+    fractions = ['','']
+    regions = ['ms','ms'] 
+    legList = [["QCD MC"], ["Data"]]
+    colorList = [[430]*7, [1]]
+    sf = [[x*30.08 for x in weights_QCDM],[1]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDMC_data_afterBDT'
+    headerOpt = "  " #
+
+elif which == 44:
+    samples = [['QCD-mixed'], ['bkg']]
+    fractions = ['appl','appl']
+    regions = ['ms','ms'] 
+    legList = [["QCD MC mixed"], ["Mixed data appl"]]
+    colorList = [[430], [1]]
+    sf = [[620605.0/8662.],[1.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDmixed_mixeddata_afterBDT'
+    headerOpt = "  " #
+
+elif which == 45:
+    samples = [['qcd_m'], ['QCDMC']]
+    fractions = ['','']
+    regions = ['ms','ms']
+    weights = [weights_QCDM, [1.836]]
+    legList = [['QCD MC HT>200'], ["QCD MC HT>500 mixing sample"]]
+    colorList = [[604]*7, [430]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_qcd_shapes_MC_vs_normalizedEvents_afterBDT'
+    headerOpt = ""
+
+elif which == 46:
+    samples = [['qcd_m'], ['qcd_m500']]
+    fractions = ['','']
+    regions = ['ms','ms']
+    weights = [weights_QCDM, weights_QCDM[2:]]
+    legList = [['QCD MC HT>200'], ['QCD MC HT>500']]
+    colorList = [[604]*7, [430]*5]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_qcd_shapes_MC_vs_MC500_afterBDT'
+    headerOpt = ""
+
+elif which == 47:
+    samples = [['qcd_m500'], ['QCDMC']]
+    fractions = ['','']
+    regions = ['ms','ms']
+    weights = [weights_QCDM[2:], [0.732]]
+    legList = [['QCD MC HT>500'], ["QCD MC HT>500 mixing sample"]]
+    colorList = [[604]*5, [430]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_qcd_shapes_MC500_vs_MCmixing_afterBDT'
+    headerOpt = ""
+
+elif which == 48:
+    samples = [['QCD-remixed'], ['QCDMC']]
+    fractions = ['appl','']
+    regions = ['ms','ms'] 
+    legList = [["Remixed QCD MC appl"], ["QCD MC (mixing sample)"]]
+    colorList = [[4], [440]]
+    sf = [[1.],[16.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCD_QCDremixed_afterBDT'
+    headerOpt = "  " #
+
+elif which == 481:
+    samples = [['QCD-remixed'], ['QCDMC']]
+    fractions = ['test','']
+    regions = ['ms','ms'] 
+    legList = [["Remixed QCD MC test"], ["QCD MC (mixing sample)"]]
+    colorList = [[4], [440]]
+    sf = [[1.],[4.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCD_QCDremixed_test_afterBDT'
+    headerOpt = "  " #
+
+elif which == 49:
+    samples = [['QCD-remixed'], ['QCD-mixed']]
+    fractions = ['appl','appl']
+    regions = ['ms','ms'] 
+    legList = [["Remixed QCD MC appl"], ["Mixed QCD MC appl"]]
+    colorList = [[4], [440]]
+    sf = [[1.],[4.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDmixed_QCDremixed_afterBDT'
+    headerOpt = "  " #
+
+elif which == 491:
+    samples = [['QCD-remixed'], ['QCD-mixed']]
+    fractions = ['test','appl']
+    regions = ['ms','ms'] 
+    legList = [["Remixed QCD MC test"], ["Mixed QCD MC appl"]]
+    colorList = [[4], [440]]
+    sf = [[1.],[4.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDmixed_appl_QCDremixed_test_afterBDT'
+    headerOpt = "  " #
+
+elif which == 492:
+    samples = [['QCD-remixed'], ['QCD-mixed']]
+    fractions = ['train','appl']
+    regions = ['ms','ms'] 
+    legList = [["Remixed QCD MC train"], ["Mixed QCD MC appl"]]
+    colorList = [[4], [440]]
+    sf = [[1.],[4.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDmixed_appl_QCDremixed_train_afterBDT'
+    headerOpt = "  " #
+
+elif which == 493:
+    samples = [['QCD-remixed'], ['QCD-mixed']]
+    fractions = ['appl','test']
+    regions = ['ms','ms'] 
+    legList = [["Remixed QCD MC appl"], ["Mixed QCD MC test"]]
+    colorList = [[4], [440]]
+    sf = [[1.],[4.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDmixed_test_QCDremixed_appl_afterBDT'
+    headerOpt = "  " #
+
+elif which == 494:
+    samples = [['QCD-remixed'], ['QCD-mixed']]
+    fractions = ['appl','train']
+    regions = ['ms','ms'] 
+    legList = [["Remixed QCD MC appl"], ["Mixed QCD MC train"]]
+    colorList = [[4], [440]]
+    sf = [[1.],[4.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDmixed_train_QCDremixed_appl_afterBDT'
+    headerOpt = "  " #
+
+elif which == 495:
+    samples = [['QCD-remixed'], ['QCD-mixed']]
+    fractions = ['test','test']
+    regions = ['ms','ms'] 
+    legList = [["Remixed QCD MC test"], ["Mixed QCD MC test"]]
+    colorList = [[4], [440]]
+    sf = [[1.],[4.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDmixed_test_QCDremixed_test_afterBDT'
+    headerOpt = "  " #
+
+elif which == 496:
+    samples = [['QCD-remixed'], ['QCD-mixed']]
+    fractions = ['train','train']
+    regions = ['ms','ms'] 
+    legList = [["Remixed QCD MC train"], ["Mixed QCD MC train"]]
+    colorList = [[4], [440]]
+    sf = [[1.],[4.]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_QCDmixed_train_QCDremixed_train_afterBDT'
+    headerOpt = "  " #
+
+elif which == 50:
+    samples = [['tt','qcd_m'], ['data']]
+    fractions = ['','']
+    regions = ['ms','ms']
+    weights0 = [0.010760] 
+    weights0.extend(weights_QCDM)
+    weights = [[x * intLumi_fb for x in weights0],[1.]]
+    legList = [['tt + qcd HT>200'], ["data"]]
+    colorList = [[430]*8, [1]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_qcdtt_vs_data_afterBDT'
+    headerOpt = ""
+
+elif which == 51:
+    samples = [['qcd_m'], ['data']]
+    fractions = ['','']
+    regions = ['ms','ms']
+    weights = [[x * intLumi_fb for x in weights_QCDM],[1.]]
+    legList = [['QCD HT>200'], ["data"]]
+    colorList = [[430]*7, [1]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'comp_qcd_vs_data_afterBDT'
+    headerOpt = ""
+
 else: 
     print "ERROR: wrong '-w' argument"
     exit()
