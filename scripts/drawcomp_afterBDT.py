@@ -562,6 +562,18 @@ elif which == 25: # -l 0 !!
     sf = [[1.],[(33.53*0.5824*0.5824/(4172119.0*0.2))]] ## update xs!!
     oname = 'comp_ttbbsig_afterBDT'
     headerOpt = "    "
+
+elif which == 99:
+    samples = [['sig'],['HHTo4B_pangea_skimBoosted']] #data always  second
+    fractions = ['','']
+    regions = ['',''] 
+    legList = [["signal"], ["overlap"]]
+    colorList = [[632], [430]]
+    sf = [[(33.53*0.5824*0.5824/(4172119.0))],[(33.53*0.5824*0.5824/(299800))]]
+    dofill = [False,False]
+    isMC = True
+    oname = 'sig_vs_overlap_afterBDT'
+    headerOpt = ""
    
 else: 
     print "ERROR: wrong '-w' argument"
