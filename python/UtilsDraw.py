@@ -530,7 +530,7 @@ def drawH1(hlist, snames, legstack, hsOpt, residuals, norm, oDir, colors, dofill
     hs, herr, h = [], [], []
     
     if residuals == 5:
-        h_bkg_bias_corr = get_bias_corrected_histo(hlist[0][0], region = "btag")
+        h_bkg_bias_corr = get_bias_corrected_histo(hlist[0][0], region = "ms")
         #print hlist, hlist[0][0].Integral()*4
         #for n in range(1, hlist[1][0].GetNbinsX()+1):
         #    print n, hlist[1][0].GetBinContent(n), hlist[0][0].GetBinContent(n) * 4, h_bkg_bias_corr.GetBinContent(n)*4, h_bkg_bias_corr.GetBinError(n)*2
@@ -2506,7 +2506,7 @@ def CMS_lumi(pad,  iPeriod,  iPosX ):
     cmsText     = "CMS";
     cmsTextFont   = 61  
 
-    writeExtraText = False
+    writeExtraText = True
     extraText   = "Preliminary"
     extraTextFont = 52 
 
@@ -2678,6 +2678,7 @@ def get_bias_corrected_histo(histo, region = "", only_bias_unc = False):
 
                         
         new_bkg_pred_tot_unc = np.sqrt(new_bkg_pred_stat**2 + bias_unc**2 + bias_unc_stat**2) * 1.93
+        
         if only_bias_unc == True:
             new_bkg_pred_tot_unc = np.sqrt(bias_unc**2 + bias_unc_stat**2) * 1.93
         
